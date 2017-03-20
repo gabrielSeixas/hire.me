@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+  db:
+    image: mongo
+
+  web:
+    image: camiseta22/ubuntu
+    volumes:
+      - "./:/root/shortner-js"
+    working_dir: /root/shortner-js
+    restart: always
+    tty: true
+    ports:
+      - "8888:8888"
+    links: 
+      - db
+  
