@@ -1,5 +1,5 @@
-const Url = require('./app/controllers/url');
-const Home = require('./app/controllers/home');
+const Url = require('./controllers/url');
+const Home = require('./controllers/home');
 
 module.exports = function(app) {
     app.get('/', Home.index);
