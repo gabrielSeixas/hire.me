@@ -6,7 +6,7 @@ const Url = require('../app/models/url');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../configs')(process.env.NODE_ENV);
 
 const should = chai.should();
 
