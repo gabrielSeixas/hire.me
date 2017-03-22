@@ -13,6 +13,10 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 describe('Urls', () => {
+    beforeEach((done) => {
+        Url.remove({}, err => done());
+    });
+
     afterEach((done) => {
         Url.remove({}, err => done());
     });

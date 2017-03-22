@@ -1,4 +1,4 @@
 
 exports.index = function(req, res, next) {
-    res.json({ message: 'Server started!' });
+	res.json({ message: 'Server started!' });
 };
