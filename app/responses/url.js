@@ -3,29 +3,32 @@ exports.success = function(response, body) {
     response.status(200).json(body);
 };
 
-exports.internalError = function(response) {
-    response.status(500).json({
-        err_code: "500",
-        description: "INTERNAL ERROR",
-        alias: hashUrl
-    });
+exports.returnIfHasErrors = function(response, error) {
+    if (error && !error.message.includes('validation')) {
+        response.status(500).json({
+            err_code: "003",
+            description: error.message,
+            error: error.errors
+        });
+    } else if (error && error.message.includes('validation')) {
+        exports.validationError(response, '', error.message);
+    }
 };
 
 exports.successObjCreation = function(req, res, url, timeTaken) {
     res.status(201).json({
-        alias: url.hashUrl,
-        url: `${req.protocol}://${req.headers.host}/u/${url.hashUrl}`,
+        alias: url.hash,
+        url: `${req.protocol}://${req.headers.host}/u/${url.hash}`,
         statistics: {
             time_taken: timeTaken
         }
     });
 };
 
-exports.notFoundError = function(response, hashUrl) {
+exports.notFoundError = function(response) {
     response.status(404).json({
-        err_code: "404",
-        description: "URL NOT FOUND",
-        alias: hashUrl
+        err_code: "002",
+        description: "SHORTENED URL NOT FOUND"
     });
 };
 
@@ -35,4 +38,8 @@ exports.validationError = function(response, customAlias, description) {
         err_code: '001',
         description
     });
+};
+
+exports.redirectTo = function(response, destiny) {
+    response.status(302).redirect(destiny);
 };
