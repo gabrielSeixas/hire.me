@@ -99,4 +99,20 @@ describe('Urls', () => {
                 });
         });
     });
+
+    describe('GET /u/:hashUrl', () => {
+        it('should redirect to full url', (done) => {
+            (new Url({
+               fullUrl: 'https://www.facebook.com/',
+               hash: 'bemobi'
+            })).save((err, url) => {
+                chai.request(server)
+                    .get('/u/bemobi')
+                    .end((err, res) => {
+                        res.redirects[0].should.eql('https://www.facebook.com/');
+                        done();
+                    });
+            });
+        });
+    });
 });

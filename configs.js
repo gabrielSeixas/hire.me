@@ -14,6 +14,7 @@ module.exports = function (env='dev') {
     mongoose.connect('mongodb://shortenerjs_db_1:shortener/shortener_'+env);
     
     app.use(morgan('combined'));
+    app.use(bodyParser.json());
     app.use(cors());
     router(app);
 
