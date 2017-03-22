@@ -1,7 +1,6 @@
 const shortid = require('shortid');
 const Url = require('../models/url');
 const Responses = require('../responses/url');
-const Utils = require('../utils');
 
 exports.create = function(req, res, next) {
 	const initTime = new Date().getTime();
@@ -47,11 +46,19 @@ exports.access = function(req, res, next) {
 };
 
 exports.listAll = function(req, res, next) {
-	Url.find({}).sort({ accessCount: 'desc' }).limit(10).exec((err, docs) => {
+	Url.find({}).sort({ accessCount: 'desc' }).limit(10).exec((err, urls) => {
 		Responses.returnIfHasErrors(res, err);
-		Responses.success(res, docs);
+		Responses.success(res, addFullUrls(req, urls));
 	});
 };
+
+function addFullUrls(req, urls) {
+	return urls.map((url) => {
+		let urlObject = url.toObject();
+		urlObject.shortUrl = `${req.protocol}://${req.headers.host}/u/${url.hash}`;
+		return urlObject;
+	});
+}
 
 function createNewUrl(res, url, hash, callback) {
 	let newUrl = new Url({
