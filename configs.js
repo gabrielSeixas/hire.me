@@ -18,7 +18,14 @@ module.exports = function (env = 'dev') {
 	app.use(cors());
 	router(app);
 
-	const port = process.env.PORT || 8888;
+	let port = 0;
+
+	if (process.env.NODE_ENV == 'test') {
+		port = 9090;
+	} else if (process.env.NODE_ENV == 'dev') {
+		port = 8888;
+	}
+	
 	const server = http.createServer(app);
 	server.listen(port);
 	console.log('Server running on port: ' + port);

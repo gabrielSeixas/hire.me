@@ -6,7 +6,7 @@ services:
     image: mongo
 
   web:
-    image: camiseta22/ubuntu
+    build: .
     volumes:
       - "./:/root/shortner-js"
     working_dir: /root/shortner-js
