@@ -6,11 +6,10 @@ export default function({ dispatch }) {
 
     action.payload
       .then(function(response) {
-        return response.json()
+        return response.json();
       })
       .then(function(json) {
         const newAction = { ...action, payload: json };
-        debugger;
         dispatch(newAction);
       });
   }
