@@ -1,9 +1,10 @@
 import 'whatwg-fetch';
+import encodeQuery from '../utils/buildQuery';
 import {
   FETCH_URLS,
-  SHORTEN_URL
+  SHORTEN_URL,
+  CLOSE_MODAL
 } from './types';
-import encodeQuery from '../utils/buildQuery';
 
 const BASE_URL = 'http://localhost:8888';
 
@@ -15,11 +16,20 @@ export function fetchUrls() {
   };
 }
 
-export function shortenUrl(url) {
-  const queryString = encodeQuery({ url });
+export function shortenUrl(url, customAlias='') {
+  const queryString = customAlias ? 
+    encodeQuery({ url, CUSTOM_ALIAS: customAlias }) :
+    encodeQuery({ url });
+
   const request = fetch(`${BASE_URL}/create?${queryString}`, { method: 'PUT' });
   return {
     type: SHORTEN_URL,
     payload: request
   };
+}
+
+export function closeModal() {
+  return {
+    type: CLOSE_MODAL
+  }
 }

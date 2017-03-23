@@ -1,4 +1,4 @@
-export default function encodeQueryData(data) {
+export default function buildQuery(data) {
    let ret = [];
    for (let d in data)
      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
