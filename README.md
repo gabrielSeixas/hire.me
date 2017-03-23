@@ -23,7 +23,7 @@ Um pequeno projeto para testar minhas habilidades como programador.
 
 ### Como instalar
 
-Para instalar o o lado do servidor é necessário ter o docker em sua máquina.
+Para instalar o lado do servidor é necessário ter o docker em sua máquina.
 Depois de ter o docker instalado, rode o seguinte comando:
 
 ```
@@ -52,7 +52,7 @@ Acesse o navegador pelo link: http://localhost:3000
 
 ### Rodando os testes de servidor
 
-Entre dentro container shortener_web__1 com o comando:
+Entre dentro container shortener_web_1 com o comando:
 
 ```
     docker exec -it shortenerjs_web_1 bash
