@@ -6,11 +6,10 @@ services:
     image: mongo
 
   web:
-    build: .
+    image: node:7.7.4
     volumes:
-      - ./:/root/shortner-js
-      - /root/shortener-js/node_modules
-    working_dir: /root/shortner-js
+      - ./:/root/shortener-js
+    working_dir: /root/shortener-js
     restart: always
     tty: true
     ports:

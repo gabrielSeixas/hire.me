@@ -22,7 +22,7 @@ exports.create = function(req, res, next) {
 	}
 
 	function createUrl(hash) {
-		createNewUrl(res, paramUrl, hash, (createdUrl) => {
+		_createNewUrl(res, paramUrl, hash, (createdUrl) => {
 			const timeTaken = new Date().getTime() - initTime;
 			Responses.successObjCreation(req, res, createdUrl, `${timeTaken} ms`);
 		});
@@ -48,11 +48,11 @@ exports.access = function(req, res, next) {
 exports.listAll = function(req, res, next) {
 	Url.find({}).sort({ accessCount: 'desc' }).limit(10).exec((err, urls) => {
 		Responses.returnIfHasErrors(res, err);
-		Responses.success(res, addFullUrls(req, urls));
+		Responses.success(res, _addFullUrls(req, urls));
 	});
 };
 
-function addFullUrls(req, urls) {
+function _addFullUrls(req, urls) {
 	return urls.map((url) => {
 		let urlObject = url.toObject();
 		urlObject.shortUrl = `${req.protocol}://${req.headers.host}/u/${url.hash}`;
@@ -60,7 +60,7 @@ function addFullUrls(req, urls) {
 	});
 }
 
-function createNewUrl(res, url, hash, callback) {
+function _createNewUrl(res, url, hash, callback) {
 	let newUrl = new Url({
 		fullUrl: url,
 		hash,

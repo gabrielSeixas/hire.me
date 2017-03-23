@@ -27,11 +27,22 @@ Para instalar o lado do servidor é necessário ter o docker em sua máquina.
 Depois de ter o docker instalado, rode o seguinte comando:
 
 ```
-    docker-compose up -d --build
+    docker-compose up -d
 ```
 
-Isso fará com que o servidor e o banco(MongoDB) suba.
-Use um client como postman e acesse o endereço http://localhost:8888 para ver se o servidor está no ar.
+Isso fará com que o servidor e o banco(MongoDB) suba. Entre no container com o comando:
+
+```
+    docker exec -it shortenerjs_web_1 bash
+```
+
+Execute execute o comando abaixo:
+
+```
+    npm install && npm start
+```
+
+Use algum cliente como postman e acesse link http://localhost:8888 para testar.
 
 ### Instalando o client
 
@@ -39,26 +50,14 @@ Para rodar é necessário ter o node.js<=7.5.0 e npm<=4.1.2.
 Entre dentro do diretório *client* e rode:
 
 ```
-    npm install
-```
-
-Depois Rode:
-
-```
-    npm start
+    npm install && npm start
 ```
 
 Acesse o navegador pelo link: http://localhost:3000
 
 ### Rodando os testes de servidor
 
-Entre dentro container shortener_web_1 com o comando:
-
-```
-    docker exec -it shortenerjs_web_1 bash
-```
-
-E rode o comando:
+Entre dentro container shortenerjs_web_1 com o comando:
 
 ```
     npm run test
