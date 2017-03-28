@@ -1,3 +1,4 @@
+
 // Application main start
 const express = require('express');
 const http = require('http');
@@ -5,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-const router = require('./app/routes');
+const router = require('../app/routes');
 const app = express();
 
 module.exports = function (env = 'dev') {
@@ -18,17 +19,12 @@ module.exports = function (env = 'dev') {
 	app.use(cors());
 	router(app);
 
-	let port = 0;
-
 	if (process.env.NODE_ENV == 'test') {
-		port = 9090;
+		process.env.PORT = 9090;
 	} else if (process.env.NODE_ENV == 'dev') {
-		port = 8888;
+		process.env.PORT = 8888;
 	}
 	
 	const server = http.createServer(app);
-	server.listen(port);
-	console.log('Server running on port: ' + port);
-
-	return app;
+	return server;
 };
